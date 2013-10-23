@@ -5,3 +5,38 @@
  */
 
 include_once 'dosomething_action_finder.features.inc';
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function dosomething_action_finder_views_query_alter(&$view, &$query) {
+  // Pop off the last few placeholder elements in the conditions array.
+  // We needed the tables to be joined, but don't need the actual conditions.
+  array_pop($query->where[1]['conditions']);
+  array_pop($query->where[1]['conditions']);
+  array_pop($query->where[1]['conditions']);
+  array_pop($query->where[1]['conditions']);
+
+  $query->fields['high_season'] = array(
+    'field' => 'IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 1, 0)',
+    'table' => '',
+    'alias' => 'in_high_season',
+  );
+  $high_season = array(
+    'field' => 'in_high_season',
+    'direction' => 'DESC'
+  );
+
+  $query->fields['low_season'] = array(
+    'field' => 'IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), 1, 0)',
+    'table' => '',
+    'alias' => 'in_low_season',
+  );
+  $low_season = array(
+    'field' => 'in_low_season',
+    'direction' => 'DESC'
+  );
+
+  array_unshift($query->orderby, $low_season);
+  array_unshift($query->orderby, $high_season);
+}
