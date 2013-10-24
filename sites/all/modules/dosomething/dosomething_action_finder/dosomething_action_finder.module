@@ -43,6 +43,12 @@ function dosomething_action_finder_views_query_alter(&$view, &$query) {
     'alias' => 'in_neutral_season',
   );
 
+  $neutral_season = array(
+    'field' => 'in_neutral_season',
+    'direction' => 'DESC',
+  );
+
   array_unshift($query->orderby, $low_season);
+  array_unshift($query->orderby, $neutral_season);
   array_unshift($query->orderby, $high_season);
 }
