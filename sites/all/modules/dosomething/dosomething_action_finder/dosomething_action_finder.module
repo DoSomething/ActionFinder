@@ -17,38 +17,16 @@ function dosomething_action_finder_views_query_alter(&$view, &$query) {
   array_pop($query->where[1]['conditions']);
   array_pop($query->where[1]['conditions']);
 
-  $query->fields['high_season'] = array(
-    'field' => 'IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 1, 0)',
+  $query->fields['weight'] = array(
+    'field' => 'IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 2, -1) + IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 1, 1) + IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), -1, 1)',
     'table' => '',
-    'alias' => 'in_high_season',
+    'alias' => 'season_weight',
   );
-  $high_season = array(
-    'field' => 'in_high_season',
+  $weight_order = array(
+    'field' => 'season_weight',
     'direction' => 'DESC',
   );
 
-  $query->fields['low_season'] = array(
-    'field' => 'IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), 1, 0)',
-    'table' => '',
-    'alias' => 'in_low_season',
-  );
-  $low_season = array(
-    'field' => 'in_low_season',
-    'direction' => 'DESC',
-  );
-
-  $query->fields['neutral_season'] = array(
-    'field' => 'IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 1, 0)',
-    'table' => '',
-    'alias' => 'in_neutral_season',
-  );
-
-  $neutral_season = array(
-    'field' => 'in_neutral_season',
-    'direction' => 'DESC',
-  );
-
-  array_unshift($query->orderby, $low_season);
-  array_unshift($query->orderby, $neutral_season);
-  array_unshift($query->orderby, $high_season);
+  $query->orderby = array();
+  array_unshift($query->orderby, $weight_order);
 }
