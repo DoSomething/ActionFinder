@@ -28,10 +28,14 @@ function dosomething_action_finder_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['inline'] = array(
+    'title' => 'title',
+  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -39,6 +43,34 @@ function dosomething_action_finder_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: High Season */
+  $handler->display->display_options['fields']['field_high_season']['id'] = 'field_high_season';
+  $handler->display->display_options['fields']['field_high_season']['table'] = 'field_data_field_high_season';
+  $handler->display->display_options['fields']['field_high_season']['field'] = 'field_high_season';
+  $handler->display->display_options['fields']['field_high_season']['label'] = '';
+  $handler->display->display_options['fields']['field_high_season']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_high_season']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_high_season']['settings'] = array(
+    'format_type' => 'short',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Low Season */
+  $handler->display->display_options['fields']['field_low_season']['id'] = 'field_low_season';
+  $handler->display->display_options['fields']['field_low_season']['table'] = 'field_data_field_low_season';
+  $handler->display->display_options['fields']['field_low_season']['field'] = 'field_low_season';
+  $handler->display->display_options['fields']['field_low_season']['label'] = '';
+  $handler->display->display_options['fields']['field_low_season']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_low_season']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_low_season']['settings'] = array(
+    'format_type' => 'long',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -109,6 +141,42 @@ function dosomething_action_finder_views_default_views() {
     3 => 0,
   );
   $handler->display->display_options['filters']['field_hours_value']['reduce_duplicates'] = TRUE;
+  /* Filter criterion: Content: High Season (field_high_season) */
+  $handler->display->display_options['filters']['field_high_season_value']['id'] = 'field_high_season_value';
+  $handler->display->display_options['filters']['field_high_season_value']['table'] = 'field_data_field_high_season';
+  $handler->display->display_options['filters']['field_high_season_value']['field'] = 'field_high_season_value';
+  $handler->display->display_options['filters']['field_high_season_value']['value'] = 'BANANA';
+  /* Filter criterion: Content: High Season (field_high_season:value2) */
+  $handler->display->display_options['filters']['field_high_season_value2']['id'] = 'field_high_season_value2';
+  $handler->display->display_options['filters']['field_high_season_value2']['table'] = 'field_data_field_high_season';
+  $handler->display->display_options['filters']['field_high_season_value2']['field'] = 'field_high_season_value2';
+  $handler->display->display_options['filters']['field_high_season_value2']['value'] = 'BANANA';
+  /* Filter criterion: Content: Low Season (field_low_season) */
+  $handler->display->display_options['filters']['field_low_season_value']['id'] = 'field_low_season_value';
+  $handler->display->display_options['filters']['field_low_season_value']['table'] = 'field_data_field_low_season';
+  $handler->display->display_options['filters']['field_low_season_value']['field'] = 'field_low_season_value';
+  $handler->display->display_options['filters']['field_low_season_value']['value'] = 'PLACEHOLDER';
+  /* Filter criterion: Content: Low Season (field_low_season:value2) */
+  $handler->display->display_options['filters']['field_low_season_value2']['id'] = 'field_low_season_value2';
+  $handler->display->display_options['filters']['field_low_season_value2']['table'] = 'field_data_field_low_season';
+  $handler->display->display_options['filters']['field_low_season_value2']['field'] = 'field_low_season_value2';
+  $handler->display->display_options['filters']['field_low_season_value2']['value'] = 'PLACEHOLDER';
+  /* Filter criterion: Content: Sponsored (field_sponsored) */
+  $handler->display->display_options['filters']['field_sponsored_value']['id'] = 'field_sponsored_value';
+  $handler->display->display_options['filters']['field_sponsored_value']['table'] = 'field_data_field_sponsored';
+  $handler->display->display_options['filters']['field_sponsored_value']['field'] = 'field_sponsored_value';
+  $handler->display->display_options['filters']['field_sponsored_value']['value'] = array(
+    0 => '0',
+    1 => '1',
+  );
+  /* Filter criterion: Content: Staff pick (field_staff_pick) */
+  $handler->display->display_options['filters']['field_staff_pick_value']['id'] = 'field_staff_pick_value';
+  $handler->display->display_options['filters']['field_staff_pick_value']['table'] = 'field_data_field_staff_pick';
+  $handler->display->display_options['filters']['field_staff_pick_value']['field'] = 'field_staff_pick_value';
+  $handler->display->display_options['filters']['field_staff_pick_value']['value'] = array(
+    0 => '0',
+    1 => '1',
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
