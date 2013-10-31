@@ -12,13 +12,18 @@ include_once 'dosomething_action_finder.features.inc';
 function dosomething_action_finder_views_query_alter(&$view, &$query) {
   // Pop off the last few placeholder elements in the conditions array.
   // We needed the tables to be joined, but don't need the actual conditions.
-  array_pop($query->where[1]['conditions']);
-  array_pop($query->where[1]['conditions']);
-  array_pop($query->where[1]['conditions']);
-  array_pop($query->where[1]['conditions']);
+  for ($i = 1; $i <= 6; $i++) {
+    array_pop($query->where[1]['conditions']);
+  }
 
   $query->fields['weight'] = array(
-    'field' => 'IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 2, -1) + IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 1, 1) + IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), -1, 1)',
+    'field' => '
+      IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 2, -1)
+      + IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 1, 1)
+      + IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), -1, 1)
+      + IF (field_staff_pick = 1, .75, 0)
+      + IF (field_sponsored = 1, .5, 0)
+    ',
     'table' => '',
     'alias' => 'season_weight',
   );
