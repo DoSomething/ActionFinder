@@ -18,11 +18,11 @@ function dosomething_action_finder_views_query_alter(&$view, &$query) {
 
   $query->fields['weight'] = array(
     'field' => '
-      IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 2, -1)
-      + IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 1, 1)
-      + IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), -1, 1)
-      + IF (field_staff_pick = 1, .75, 0)
-      + IF (field_sponsored = 1, .5, 0)
+      IF (field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE(), 5, -2)
+      + IF ((field_high_season_value < CURDATE() AND field_high_season_value2 > CURDATE()) = 0 AND (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE()) = 0, 3, 3)
+      + IF (field_low_season_value < CURDATE() AND field_low_season_value2 > CURDATE(), -4, 2)
+      + IF (field_staff_pick_value = 1, 2, 0)
+      + IF (field_sponsored_value = 1, 1, 0)
     ',
     'table' => '',
     'alias' => 'season_weight',

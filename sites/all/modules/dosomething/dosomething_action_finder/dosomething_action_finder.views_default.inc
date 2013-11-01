@@ -71,6 +71,20 @@ function dosomething_action_finder_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  /* Field: Content: Sponsored */
+  $handler->display->display_options['fields']['field_sponsored']['id'] = 'field_sponsored';
+  $handler->display->display_options['fields']['field_sponsored']['table'] = 'field_data_field_sponsored';
+  $handler->display->display_options['fields']['field_sponsored']['field'] = 'field_sponsored';
+  $handler->display->display_options['fields']['field_sponsored']['label'] = '';
+  $handler->display->display_options['fields']['field_sponsored']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_sponsored']['element_label_colon'] = FALSE;
+  /* Field: Content: Staff pick */
+  $handler->display->display_options['fields']['field_staff_pick']['id'] = 'field_staff_pick';
+  $handler->display->display_options['fields']['field_staff_pick']['table'] = 'field_data_field_staff_pick';
+  $handler->display->display_options['fields']['field_staff_pick']['field'] = 'field_staff_pick';
+  $handler->display->display_options['fields']['field_staff_pick']['label'] = '';
+  $handler->display->display_options['fields']['field_staff_pick']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_staff_pick']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
